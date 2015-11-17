@@ -238,6 +238,10 @@
 		reg = <0x24>;
 	};
 
+	eeprom: boneprom@50 {
+		compatible = "beaglebone,eeprom";
+		reg = <0x50>;
+	};
 };
 
 /include/ "tps65217.dtsi"
