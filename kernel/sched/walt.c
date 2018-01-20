@@ -43,7 +43,7 @@ static __read_mostly unsigned int walt_io_is_busy = 0;
 unsigned int sysctl_sched_walt_init_task_load_pct = 15;
 
 /* 1 -> use PELT based load stats, 0 -> use window-based load stats */
-unsigned int __read_mostly walt_disabled = 0;
+unsigned int __read_mostly walt_disabled = 1;
 
 static unsigned int max_possible_efficiency = 1024;
 static unsigned int min_possible_efficiency = 1024;
