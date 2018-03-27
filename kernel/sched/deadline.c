@@ -48,6 +48,9 @@ void add_running_bw(struct sched_dl_entity *dl_se, struct dl_rq *dl_rq)
 {
 	u64 old = dl_rq->running_bw;
 
+	if (unlikely(dl_entity_is_special(dl_se)))
+		return;
+
 	lockdep_assert_held(&(rq_of_dl_rq(dl_rq))->lock);
 	dl_rq->running_bw += dl_se->dl_bw;
 	WARN_ON(dl_rq->running_bw < old); /* overflow */
@@ -60,6 +63,9 @@ static inline
 void sub_running_bw(struct sched_dl_entity *dl_se, struct dl_rq *dl_rq)
 {
 	u64 old = dl_rq->running_bw;
+
+	if (unlikely(dl_entity_is_special(dl_se)))
+		return;
 
 	lockdep_assert_held(&(rq_of_dl_rq(dl_rq))->lock);
 	dl_rq->running_bw -= dl_se->dl_bw;
@@ -75,6 +81,9 @@ void add_rq_bw(struct sched_dl_entity *dl_se, struct dl_rq *dl_rq)
 {
 	u64 old = dl_rq->this_bw;
 
+	if (unlikely(dl_entity_is_special(dl_se)))
+		return;
+
 	lockdep_assert_held(&(rq_of_dl_rq(dl_rq))->lock);
 	dl_rq->this_bw += dl_se->dl_bw;
 	WARN_ON(dl_rq->this_bw < old); /* overflow */
@@ -84,6 +93,9 @@ static inline
 void sub_rq_bw(struct sched_dl_entity *dl_se, struct dl_rq *dl_rq)
 {
 	u64 old = dl_rq->this_bw;
+
+	if (unlikely(dl_entity_is_special(dl_se)))
+		return;
 
 	lockdep_assert_held(&(rq_of_dl_rq(dl_rq))->lock);
 	dl_rq->this_bw -= dl_se->dl_bw;
