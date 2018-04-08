@@ -4015,16 +4015,7 @@ __getparam_dl(struct task_struct *p, struct sched_attr *attr, unsigned int flags
 	attr->sched_priority = p->rt_priority;
 
 	if (flags == 1 && p == current) {
-		struct rq_flags rf;
-		struct rq *rq;
-
-		rq = task_rq_lock(p, &rf);
-
-		sched_clock_tick();
-		update_rq_clock(rq);
 		update_curr_dl(task_rq(p));
-
-		task_rq_unlock(rq, p, &rf);
 
 		/*
 		 * sched_runtime can never be negative because, since this
